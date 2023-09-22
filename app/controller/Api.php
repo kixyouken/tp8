@@ -4,11 +4,21 @@ declare(strict_types=1);
 namespace app\controller;
 
 use app\BaseController;
-use think\facade\View;
-use think\Request;
+use app\model\Base;
+use think\facade\App;
+use think\facade\Request;
 
-class Common extends BaseController
+class Api extends BaseController
 {
+    public $table = null;
+
+    public function __construct()
+    {
+        $pathinfos = explode('/', Request::pathinfo());
+        $table_json = file_get_contents(App::getAppPath() . '/json/table/' . $pathinfos[1] . '.json');
+        $this->table = json_decode($table_json, true);
+    }
+
     /**
      * 显示资源列表
      *
@@ -16,22 +26,9 @@ class Common extends BaseController
      */
     public function index()
     {
-        $content = file_get_contents($this->app->getAppPath() . '/json/menu.json');
-        $data = json_decode($content, true);
-        $pathinfos = explode('/', $this->request->pathinfo());
-        View::assign('rule', '/' . $this->request->pathinfo());
-        View::assign('pathinfos', $pathinfos);
-        return view('', $data);
-    }
-
-    /**
-     * 显示创建资源表单页.
-     *
-     * @return \think\Response
-     */
-    public function create()
-    {
-        return 'create';
+        $model = new Base($this->table['model']);
+        $data = $model->getPage();
+        return json($data);
     }
 
     /**
@@ -53,18 +50,8 @@ class Common extends BaseController
      */
     public function read($id)
     {
-        return 'read';
-    }
-
-    /**
-     * 显示编辑资源表单页.
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function edit($id)
-    {
-        return 'edit';
+        $model = new Base('users');
+        return json($model->getId($id));
     }
 
     /**

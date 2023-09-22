@@ -57,16 +57,19 @@
                 <ul class="layui-nav layui-nav-tree" lay-filter="test">
                     {volist name="data" id="vo"}
                     {present name="vo.list"}
-                    <li class="layui-nav-item {if $vo.name == $pathinfos[0]}layui-nav-itemed{/if}">
+                    <li
+                        class="layui-nav-item {present name='$pathinfos[2]'}{if $vo.name == $pathinfos[2]}layui-nav-itemed{/if}{/present}">
                         <a class="" href="javascript:;">{$vo.title}</a>
                         <dl class="layui-nav-child">
                             {volist name="vo.list" id="v"}
-                            <dd class="{if $rule == $v.jump}layui-this{/if}"><a href="{$v.jump}">{$v.title}</a></dd>
+                            <dd
+                                class="{present name='$pathinfos[2]'}{if $vo.name == $pathinfos[2]}layui-this{/if}{/present}">
+                                <a href="{$v.jump}">{$v.title}</a></dd>
                             {/volist}
                         </dl>
                     </li>
                     {else /}
-                    <li class="layui-nav-item {if $vo.name == $pathinfos[0]}layui-this{/if}"><a
+                    <li class="layui-nav-item {if $vo.name == $pathinfos[1]}layui-this{/if}"><a
                             href="{$vo.jump}">{$vo.title}</a></li>
                     {/present}
                     {/volist}

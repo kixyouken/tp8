@@ -4,7 +4,7 @@
             "name": "index",
             "title": "控制台",
             "icon": "layui-icon-home",
-            "jump": "/index/index"
+            "jump": "/admin/index"
         },
         {
             "name": "users",
@@ -12,29 +12,9 @@
             "icon": "layui-icon-template",
             "list": [
                 {
-                    "name": "index",
+                    "name": "users",
                     "title": "用户列表",
-                    "jump": "/users/index"
-                },
-                {
-                    "name": "login",
-                    "title": "登入",
-                    "jump": "user/login"
-                },
-                {
-                    "name": "forget",
-                    "title": "忘记密码",
-                    "jump": "user/forget"
-                },
-                {
-                    "name": "404",
-                    "title": "404 页",
-                    "jump": "template/tips/404"
-                },
-                {
-                    "name": "error",
-                    "title": "出错页",
-                    "jump": "template/tips/error"
+                    "jump": "/admin/table/users"
                 }
             ]
         },
