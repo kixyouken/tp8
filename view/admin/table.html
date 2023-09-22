@@ -3,24 +3,40 @@
 {block name="main"}
 
 <div class="layui-row layui-col-space15">
-    <div class="layui-col-md6">
+    <div class="layui-col-md12">
         <div class="layui-card">
-            <div class="layui-card-header">卡片面板</div>
+            <div class="layui-card-header">{$name}</div>
             <div class="layui-card-body">
-                卡片式面板面板通常用于非白色背景色的主体内<br>
-                从而映衬出边框投影
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6">
-        <div class="layui-card">
-            <div class="layui-card-header">卡片面板</div>
-            <div class="layui-card-body">
-                卡片式面板面板通常用于非白色背景色的主体内<br>
-                从而映衬出边框投影
+                <table class="layui-hide" id="admin-table" lay-filter="test"></table>
             </div>
         </div>
     </div>
 </div>
 
+{/block}
+
+
+{block name="js"}
+<script type="text/html" id="toolBar">
+    <div class="layui-clear-space">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-xs" lay-event="more">
+        更多 
+        <i class="layui-icon layui-icon-down"></i>
+        </a>
+    </div>
+</script>
+
+<script>
+    layui.use(function () {
+        var table = layui.table;
+
+        table.render({
+            elem: "#admin-table"
+            , url: "/api/users/index"
+            , cols: [<?php echo json_encode($columns); ?>]
+            , page: "{$page}"
+        })
+    })
+</script>
 {/block}

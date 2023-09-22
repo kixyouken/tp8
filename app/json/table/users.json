@@ -3,10 +3,18 @@
     "model": "users",
     "columns": [
         {
-            "name": "ID"
+            "field": "id",
+            "title": "ID"
         },
         {
-            "name": "姓名"
+            "field": "name",
+            "title": "姓名"
+        },
+        {
+            "fixed": "right",
+            "title": "操作",
+            "toolbar": "#toolBar"
         }
-    ]
+    ],
+    "page": false
 }

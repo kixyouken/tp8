@@ -4,12 +4,15 @@ declare(strict_types=1);
 namespace app\controller;
 
 use app\BaseController;
+use app\common\Output;
 use app\model\Base;
 use think\facade\App;
 use think\facade\Request;
 
 class Api extends BaseController
 {
+    use Output;
+
     public $table = null;
 
     public function __construct()
@@ -28,7 +31,8 @@ class Api extends BaseController
     {
         $model = new Base($this->table['model']);
         $data = $model->getPage();
-        return json($data);
+
+        return $this->pageful($data->getCollection(), $data->total());
     }
 
     /**

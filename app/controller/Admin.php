@@ -31,6 +31,11 @@ class Admin extends BaseController
         $pathinfos = explode('/', $this->request->pathinfo());
         View::assign('rule', '/' . $this->request->pathinfo());
         View::assign('pathinfos', $pathinfos);
+
+        $pathinfos = explode('/', $this->request->pathinfo());
+        $table_json = file_get_contents($this->app->getAppPath() . '/json/table/' . $pathinfos[2] . '.json');
+        $table = json_decode($table_json, true);
+        View::assign($table);
         return view('', $data);
     }
 
