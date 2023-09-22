@@ -8,7 +8,9 @@ class Index extends BaseController
 {
     public function index()
     {
-        return '<style>*{ padding: 0; margin: 0; }</style><iframe src="https://www.thinkphp.cn/welcome?version=' . \think\facade\App::version() . '" width="100%" height="100%" frameborder="0" scrolling="auto"></iframe>';
+        $content = file_get_contents($this->app->getAppPath() . '/json/menu.json');
+        $data = json_decode($content, true);
+        return view('', $data);
     }
 
     public function hello($name = 'ThinkPHP8')
