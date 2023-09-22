@@ -57,16 +57,17 @@
                 <ul class="layui-nav layui-nav-tree" lay-filter="test">
                     {volist name="data" id="vo"}
                     {present name="vo.list"}
-                    <li class="layui-nav-item layui-nav-itemed">
+                    <li class="layui-nav-item {if $vo.name == $pathinfos[0]}layui-nav-itemed{/if}">
                         <a class="" href="javascript:;">{$vo.title}</a>
                         <dl class="layui-nav-child">
                             {volist name="vo.list" id="v"}
-                            <dd><a href="{$v.jump}">{$v.title}</a></dd>
+                            <dd class="{if $rule == $v.jump}layui-this{/if}"><a href="{$v.jump}">{$v.title}</a></dd>
                             {/volist}
                         </dl>
                     </li>
                     {else /}
-                    <li class="layui-nav-item"><a href="{$vo.jump}">{$vo.title}</a></li>
+                    <li class="layui-nav-item {if $vo.name == $pathinfos[0]}layui-this{/if}"><a
+                            href="{$vo.jump}">{$vo.title}</a></li>
                     {/present}
                     {/volist}
                 </ul>
@@ -74,19 +75,8 @@
         </div>
         <div class="layui-body">
             <!-- 内容主体区域 -->
-            <div style="padding: 15px;">
-                <blockquote class="layui-elem-quote layui-text">
-                    Layui 框体布局内容主体区域
-                </blockquote>
-                <div class="layui-card layui-panel">
-                    <div class="layui-card-header">
-                        下面是充数内容，为的是出现滚动条
-                    </div>
-                    <div class="layui-card-body">
-                        充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>你还真滑到了底部呀
-                    </div>
-                </div>
-                <br><br>
+            <div style="padding: 15px; background-color: #f2f2f2;">
+                {block name="main"}主内容{/block}
             </div>
         </div>
         <div class="layui-footer">

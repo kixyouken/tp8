@@ -1,19 +1,20 @@
 {
     "data": [
         {
+            "name": "index",
             "title": "控制台",
             "icon": "layui-icon-home",
-            "jump": "/"
+            "jump": "/index/index"
         },
         {
-            "name": "template",
-            "title": "页面",
+            "name": "users",
+            "title": "用户管理",
             "icon": "layui-icon-template",
             "list": [
                 {
-                    "name": "reg",
-                    "title": "注册",
-                    "jump": "user/reg"
+                    "name": "index",
+                    "title": "用户列表",
+                    "jump": "/users/index"
                 },
                 {
                     "name": "login",
@@ -63,7 +64,7 @@
             "name": "get",
             "title": "关于",
             "icon": "layui-icon-auz",
-            "jump": "system/about"
+            "jump": "/get/index"
         }
     ]
 }

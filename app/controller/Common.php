@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace app\controller;
 
 use app\BaseController;
+use think\facade\View;
 use think\Request;
 
 class Common extends BaseController
@@ -15,7 +16,12 @@ class Common extends BaseController
      */
     public function index()
     {
-        return 'index';
+        $content = file_get_contents($this->app->getAppPath() . '/json/menu.json');
+        $data = json_decode($content, true);
+        $pathinfos = explode('/', $this->request->pathinfo());
+        View::assign('rule', '/' . $this->request->pathinfo());
+        View::assign('pathinfos', $pathinfos);
+        return view('', $data);
     }
 
     /**
