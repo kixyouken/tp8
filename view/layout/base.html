@@ -69,7 +69,7 @@
                         </dl>
                     </li>
                     {else /}
-                    <li class="layui-nav-item {if $vo.name == $pathinfos[1]}layui-this{/if}"><a
+                    <li class="layui-nav-item {if $vo.name == $pathinfos[1] || $vo.name == $pathinfos[2]}layui-this{/if}"><a
                             href="{$vo.jump}">{$vo.title}</a></li>
                     {/present}
                     {/volist}

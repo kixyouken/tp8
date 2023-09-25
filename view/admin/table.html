@@ -10,6 +10,8 @@
                 <table class="layui-hide" id="admin-table" lay-filter="admin-table"></table>
             </div>
         </div>
+        <br>
+        <br>
     </div>
 </div>
 
@@ -32,9 +34,9 @@
 
         table.render({
             elem: "#admin-table"
-            , url: "/api/users/index"
+            , url: "/api/{$pathinfos[2]}/index"
             , cols: [<?php echo json_encode($columns); ?>]
-            , page: {$page}
+            , page: {$page ?? "false"}
         });
 
     table.on("tool(admin-table)", function (obj) {
@@ -50,7 +52,7 @@
             case "delete":
                 layer.confirm('确定删除吗？', { icon: 3 }, function () {
                     $.ajax({
-                        url: "/api/users/delete/" + data.id
+                        url: "/api/{$pathinfos[2]}/delete/" + data.id
                         , type: "delete"
                     })
                         .done(function (res) {

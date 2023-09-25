@@ -7,6 +7,12 @@
             "jump": "/admin/index"
         },
         {
+            "name": "admin_menu",
+            "title": "菜单",
+            "icon": "layui-icon-home",
+            "jump": "/admin/table/admin_menu"
+        },
+        {
             "name": "users",
             "title": "用户管理",
             "icon": "layui-icon-template",

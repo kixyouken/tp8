@@ -15,11 +15,16 @@ class Api extends BaseController
 
     public $table = null;
 
+    public $model = null;
+
     public function __construct()
     {
         $pathinfos = explode('/', Request::pathinfo());
         $table_json = file_get_contents(App::getRootPath() . '/public/json/table/' . $pathinfos[1] . '.json');
         $this->table = json_decode($table_json, true);
+
+        $model_json = file_get_contents(App::getRootPath() . '/public/json/model/' . $this->table['model'] . '.json');
+        $this->model = json_decode($model_json, true);
     }
 
     /**
@@ -29,10 +34,16 @@ class Api extends BaseController
      */
     public function index()
     {
-        $model = new Base($this->table['model']);
-        $data = $model->getPage($this->table);
+        $model = new Base($this->model['table']);
 
-        return $this->pageful($data->getCollection(), $data->total());
+        if (empty($this->table['page'])) {
+            $data = $model->getAll($this->table);
+            return $this->dataful($data);
+        } else {
+            $data = $model->getPage($this->table);
+            return $this->pageful($data->getCollection(), $data->total());
+        }
+
     }
 
     /**
@@ -78,7 +89,7 @@ class Api extends BaseController
      */
     public function delete($id)
     {
-        $model = new Base($this->table['model']);
+        $model = new Base($this->model['table']);
         $model->setDelete($id);
         return $this->successful('删除成功');
     }

@@ -14,6 +14,11 @@ class Base
         $this->table = Db::table($table);
     }
 
+    public function getAll($table_json)
+    {
+        return $this->table->select();
+    }
+
     public function getId($id)
     {
         return $this->table->where('id', $id)->find();
