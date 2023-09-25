@@ -10,8 +10,6 @@
                 <table class="layui-hide" id="admin-table" lay-filter="admin-table"></table>
             </div>
         </div>
-        <br>
-        <br>
     </div>
 </div>
 
@@ -44,7 +42,14 @@
         console.log(data);
         switch (obj.event) {
             case "view":
-
+                layer.open({
+                    type: 2,
+                    title: "查看",
+                    shadeClose: true,
+                    maxmin: true, // 开启最大化最小化按钮
+                    area: ["80%", "80%"],
+                    content: "/admin/form/{$pathinfos[2]}?" + $.param(data)
+                });
                 break;
             case "edit":
 

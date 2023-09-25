@@ -1,20 +1,4 @@
 {
     "name": "菜单表格",
-    "model": "admin_menu",
-    "columns": [
-        {
-            "field": "id",
-            "title": "ID"
-        },
-        {
-            "field": "title",
-            "title": "名称"
-        }
-    ],
-    "orders": [
-        {
-            "field": "id",
-            "sort": "desc"
-        }
-    ]
+    "model": "admin_menu"
 }

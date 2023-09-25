@@ -1,0 +1,14 @@
+{
+    "name": "表格",
+    "model": "master_job",
+    "columns": [
+
+    ],
+    "page": "true",
+    "orders": [
+        {
+            "field": "id",
+            "sort": "desc"
+        }
+    ]
+}

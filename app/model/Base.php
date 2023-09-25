@@ -14,9 +14,9 @@ class Base
         $this->table = Db::table($table);
     }
 
-    public function getAll($table_json)
+    public function getAll($table_json, $fields = ['*'])
     {
-        return $this->table->select();
+        return $this->table->field($fields)->select();
     }
 
     public function getId($id)
@@ -50,5 +50,21 @@ class Base
         }
 
         return $this->table;
+    }
+
+    public function getFields()
+    {
+        return $this->table->getTableFields();
+    }
+
+    public function getColumns($fields)
+    {
+        $columns = [];
+        foreach ($fields as $key => &$value) {
+            $columns[$key]['field'] = $value;
+            $columns[$key]['title'] = $value;
+        }
+
+        return $columns;
     }
 }

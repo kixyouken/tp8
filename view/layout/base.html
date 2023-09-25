@@ -64,13 +64,16 @@
                             {volist name="vo.list" id="v"}
                             <dd
                                 class="{present name='$pathinfos[2]'}{if $vo.name == $pathinfos[2]}layui-this{/if}{/present}">
-                                <a href="{$v.jump}">{$v.title}</a></dd>
+                                <a href="{$v.jump}">{$v.title}</a>
+                            </dd>
                             {/volist}
                         </dl>
                     </li>
                     {else /}
-                    <li class="layui-nav-item {if $vo.name == $pathinfos[1] || $vo.name == $pathinfos[2]}layui-this{/if}"><a
-                            href="{$vo.jump}">{$vo.title}</a></li>
+                    <li
+                        class="layui-nav-item {present name='$pathinfos[2]'}{if $vo.name == $pathinfos[2]}layui-this{/if}{else /}{if $vo.name == $pathinfos[1]}layui-this{/if}{/present}">
+                        <a href="{$vo.jump}">{$vo.title}</a>
+                    </li>
                     {/present}
                     {/volist}
                 </ul>
@@ -82,10 +85,10 @@
                 {block name="main"}主内容{/block}
             </div>
         </div>
-        <div class="layui-footer">
-            <!-- 底部固定区域 -->
+        <!-- 底部固定区域 -->
+        <!-- <div class="layui-footer">
             底部固定区域
-        </div>
+        </div> -->
     </div>
 
     {js href="/static/layui.js" /}

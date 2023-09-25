@@ -1,0 +1,94 @@
+{extend name="layout/iframe" /}
+
+{block name="main"}
+<div class="layui-row">
+    <div class="layui-col-md12">
+        <div class="layui-card">
+            <div class="layui-card-header">{$name}</div>
+            <div class="layui-card-body">
+                <form class="layui-form layui-row layui-col-space15" lay-filter="admin-form" action="">
+                    {volist name="columns" id="vo"}
+                    {present name="$vo.type"}
+                    {switch $vo.type}
+                    {case select}
+                    <div class="layui-col-md6">
+                        <div class="layui-form-item" style="margin-bottom: 0;">
+                            <label class="layui-form-label">{$vo.title} :</label>
+                            <div class="layui-input-block">
+                                <select name="{$vo.field}" lay-search="">
+                                    <option value=""></option>
+                                    {volist name="$vo.options" id="v"}
+                                    <option value="{$v.value}">{$v.label}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    {/case}
+                    {default /}
+                    <div class="layui-col-md6">
+                        <div class="layui-form-item" style="margin-bottom: 0;">
+                            <label class="layui-form-label">{$vo.title} :</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="{$vo.field}" placeholder="请输入{$vo.title}" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    {/switch}
+                    {else /}
+                    <div class="layui-col-md6">
+                        <div class="layui-form-item" style="margin-bottom: 0;">
+                            <label class="layui-form-label">{$vo.title} :</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="{$vo.field}" placeholder="请输入{$vo.title}" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    {/present}
+                    {/volist}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block name="js"}
+
+<script>
+    // 获取所有参数
+    function getUrlParamAll() {
+        let queryString = window.location.search.slice(1);
+        let paramsArray = queryString.split("&");
+        let params = {};
+
+        paramsArray.forEach(param => {
+            let [key, value] = param.split("=");
+            params[key] = decodeURIComponent(value);
+        });
+
+        return params
+    }
+
+    var params = getUrlParamAll();
+
+    layui.use(function () {
+        var form = layui.form
+            , $ = layui.$
+
+        layer.msg("请求中...", {
+            icon: 16
+        });
+
+        $.ajax({
+            url: "/api/{$pathinfos[2]}/read/" + params.id
+        })
+            .done(function (res) {
+                form.val("admin-form", res.data);
+                form.render();
+                layer.closeAll("dialog");
+            })
+    });
+</script>
+
+{/block}

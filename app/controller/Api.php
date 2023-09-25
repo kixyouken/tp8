@@ -65,8 +65,9 @@ class Api extends BaseController
      */
     public function read($id)
     {
-        $model = new Base('users');
-        return json($model->getId($id));
+        $model = new Base($this->model['table']);
+        $data = $model->getId($id);
+        return $this->dataful($data);
     }
 
     /**

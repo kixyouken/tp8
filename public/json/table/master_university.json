@@ -1,0 +1,14 @@
+{
+    "name": "用户表格",
+    "model": "master_university",
+    "columns": [
+
+    ],
+    "page": "true",
+    "orders": [
+        {
+            "field": "id",
+            "sort": "desc"
+        }
+    ]
+}

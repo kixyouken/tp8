@@ -13,6 +13,12 @@
             "jump": "/admin/table/admin_menu"
         },
         {
+            "name": "master_university",
+            "title": "学校",
+            "icon": "layui-icon-home",
+            "jump": "/admin/table/master_university"
+        },
+        {
             "name": "users",
             "title": "用户管理",
             "icon": "layui-icon-template",
