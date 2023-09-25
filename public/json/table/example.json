@@ -16,5 +16,18 @@
             "toolbar": "#toolBar"
         }
     ],
-    "page": false
+    "page": true,
+    "orders": [
+        {
+            "field": "id",
+            "sort": "desc"
+        }
+    ],
+    "wheres": [
+        {
+            "field": "id",
+            "match": "=",
+            "value": "100009552"
+        }
+    ]
 }

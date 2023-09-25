@@ -4,9 +4,9 @@ namespace app\common;
 
 trait Output
 {
-    public function successful()
+    public function successful($msg = 'success')
     {
-        return json(['code' => 0, 'msg' => 'success']);
+        return json(['code' => 0, 'msg' => $msg]);
     }
 
     public function dataful($data = null)

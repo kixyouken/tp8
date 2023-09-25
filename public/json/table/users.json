@@ -1,0 +1,26 @@
+{
+    "name": "用户表格",
+    "model": "users",
+    "columns": [
+        {
+            "field": "id",
+            "title": "ID"
+        },
+        {
+            "field": "name",
+            "title": "姓名"
+        },
+        {
+            "title": "操作",
+            "width": 150,
+            "toolbar": "#toolBar"
+        }
+    ],
+    "page": "true",
+    "orders": [
+        {
+            "field": "id",
+            "sort": "desc"
+        }
+    ]
+}

@@ -7,7 +7,7 @@
         <div class="layui-card">
             <div class="layui-card-header">{$name}</div>
             <div class="layui-card-body">
-                <table class="layui-hide" id="admin-table" lay-filter="test"></table>
+                <table class="layui-hide" id="admin-table" lay-filter="admin-table"></table>
             </div>
         </div>
     </div>
@@ -19,24 +19,49 @@
 {block name="js"}
 <script type="text/html" id="toolBar">
     <div class="layui-clear-space">
-        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-        <a class="layui-btn layui-btn-xs" lay-event="more">
-        更多 
-        <i class="layui-icon layui-icon-down"></i>
-        </a>
+        <a class="layui-btn layui-btn-xs layui-btn-primary layui-border-green" lay-event="view">查看</a>
+        <a class="layui-btn layui-btn-xs layui-btn-primary layui-border-blue" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-xs layui-btn-primary layui-border-red" lay-event="delete">删除</a>
     </div>
 </script>
 
 <script>
     layui.use(function () {
-        var table = layui.table;
+        var table = layui.table
+            , $ = layui.$;
 
         table.render({
             elem: "#admin-table"
             , url: "/api/users/index"
             , cols: [<?php echo json_encode($columns); ?>]
-            , page: "{$page}"
-        })
+            , page: {$page}
+        });
+
+    table.on("tool(admin-table)", function (obj) {
+        let data = obj.data;
+        console.log(data);
+        switch (obj.event) {
+            case "view":
+
+                break;
+            case "edit":
+
+                break;
+            case "delete":
+                layer.confirm('确定删除吗？', { icon: 3 }, function () {
+                    $.ajax({
+                        url: "/api/users/delete/" + data.id
+                        , type: "delete"
+                    })
+                        .done(function (res) {
+                            layer.msg(res.msg);
+                        })
+                });
+                break;
+            default:
+                break;
+        }
+    });
     })
 </script>
 {/block}

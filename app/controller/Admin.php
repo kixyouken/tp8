@@ -11,7 +11,7 @@ class Admin extends BaseController
 {
     public function index()
     {
-        $content = file_get_contents($this->app->getAppPath() . '/json/menu.json');
+        $content = file_get_contents($this->app->getRootPath() . '/public/json/menu.json');
         $data = json_decode($content, true);
         $pathinfos = explode('/', $this->request->pathinfo());
         View::assign('rule', '/' . $this->request->pathinfo());
@@ -26,14 +26,14 @@ class Admin extends BaseController
      */
     public function table()
     {
-        $content = file_get_contents($this->app->getAppPath() . '/json/menu.json');
+        $content = file_get_contents($this->app->getRootPath() . '/public/json/menu.json');
         $data = json_decode($content, true);
         $pathinfos = explode('/', $this->request->pathinfo());
         View::assign('rule', '/' . $this->request->pathinfo());
         View::assign('pathinfos', $pathinfos);
 
         $pathinfos = explode('/', $this->request->pathinfo());
-        $table_json = file_get_contents($this->app->getAppPath() . '/json/table/' . $pathinfos[2] . '.json');
+        $table_json = file_get_contents($this->app->getRootPath() . '/public/json/table/' . $pathinfos[2] . '.json');
         $table = json_decode($table_json, true);
         View::assign($table);
         return view('', $data);
