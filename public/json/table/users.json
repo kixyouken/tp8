@@ -52,6 +52,22 @@
             "field": "master_university.name",
             "match": "like",
             "title": "学校名"
+        },
+        {
+            "field": "users.type",
+            "match": "=",
+            "title": "学科",
+            "type": "select",
+            "options": [
+                {
+                    "label": "文科",
+                    "value": "1"
+                },
+                {
+                    "label": "理科",
+                    "value": "2"
+                }
+            ]
         }
     ]
 }

@@ -6,7 +6,7 @@
         width: 70px;
     }
 
-    .layui-input-prefix+.layui-input {
+    .layui-input {
         padding-left: 70px !important;
     }
 </style>
@@ -21,6 +21,23 @@
             <div class="layui-card-body">
                 <form class="layui-form layui-row layui-col-space15" action="javascript:void(0);">
                     {volist name="searchs" id="vo"}
+                    {present name="$vo.type"}
+                    {switch $vo.type}
+                    {case select}
+                    <div class="layui-col-md4">
+                        <div class="layui-input-wrap">
+                            <div class="layui-input-prefix">
+                                {$vo.title ?? $vo.field}
+                            </div>
+                            <select name="{$vo.field}+{$vo.match}">
+                                {volist name="$vo.options" id="v"}
+                                <option value="{$v.value}">{$v.label}</option>
+                                {/volist}
+                            </select>
+                        </div>
+                    </div>
+                    {/case}
+                    {default /}
                     <div class="layui-col-md4">
                         <div class="layui-input-wrap">
                             <div class="layui-input-prefix">
@@ -30,6 +47,18 @@
                                 class="layui-input" lay-affix="clear">
                         </div>
                     </div>
+                    {/switch}
+                    {else /}
+                    <div class="layui-col-md4">
+                        <div class="layui-input-wrap">
+                            <div class="layui-input-prefix">
+                                {$vo.title ?? $vo.field}
+                            </div>
+                            <input type="text" name="{$vo.field}+{$vo.match}" value="" placeholder="请输入 {$vo.title ?? $vo.field}"
+                                class="layui-input" lay-affix="clear">
+                        </div>
+                    </div>
+                    {/present}
                     {/volist}
                     <div class="layui-btn-container layui-col-xs12">
                         <button class="layui-btn" lay-submit lay-filter="admin-table-search">Search</button>
