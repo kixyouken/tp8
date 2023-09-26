@@ -28,6 +28,7 @@ class Base
     {
         $limit = Request::get('limit', 10);
         $this->table = $this->getModel($model_json);
+        $this->table = $this->getWheres();
         return $this->getTable($table_json)->field($model_json['table'] . '.*')->paginate($limit);
     }
 
@@ -74,6 +75,34 @@ class Base
                 }
             }
         }
+        return $this->table;
+    }
+
+    private function getWheres()
+    {
+        $wheres = Request::param('wheres');
+        if (!empty($wheres)) {
+            foreach ($wheres as $key => &$value) {
+                if (!empty($value)) {
+                    list($field, $match) = explode('_', $key);
+                    switch ($match) {
+                        case 'like':
+                            $this->table->whereLike($field, '%' . $value . '%');
+                            break;
+                        case 'like.left':
+                            $this->table->whereLike($field, '%' . $value);
+                            break;
+                        case 'like.right':
+                            $this->table->whereLike($field, $value . '%');
+                            break;
+                        default:
+                            $this->table->where($field, $match, $value);
+                            break;
+                    }
+                }
+            }
+        }
+
         return $this->table;
     }
 

@@ -25,5 +25,15 @@
             "field": "users.id",
             "sort": "desc"
         }
+    ],
+    "searchs": [
+        {
+            "field": "id",
+            "match": "="
+        },
+        {
+            "field": "name",
+            "match": "like.right"
+        }
     ]
 }

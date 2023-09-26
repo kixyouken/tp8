@@ -1,5 +1,17 @@
 {extend name="layout/base" /}
 
+{block name="css"}
+<style>
+    .layui-input-prefix {
+        width: 70px;
+    }
+
+    .layui-input-prefix+.layui-input {
+        padding-left: 70px !important;
+    }
+</style>
+{/block}
+
 {block name="main"}
 
 <div class="layui-row layui-col-space15">
@@ -7,6 +19,23 @@
         <div class="layui-card">
             <div class="layui-card-header">{$name}</div>
             <div class="layui-card-body">
+                <form class="layui-form layui-row layui-col-space15" action="javascript:void(0);">
+                    {volist name="searchs" id="vo"}
+                    <div class="layui-col-md4">
+                        <div class="layui-input-wrap">
+                            <div class="layui-input-prefix">
+                                {$vo.field}
+                            </div>
+                            <input type="text" name="{$vo.field}_{$vo.match}" value="" placeholder="请输入{$vo.field}"
+                                class="layui-input" lay-affix="clear">
+                        </div>
+                    </div>
+                    {/volist}
+                    <div class="layui-btn-container layui-col-xs12">
+                        <button class="layui-btn" lay-submit lay-filter="admin-table-search">Search</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">Clear</button>
+                    </div>
+                </form>
                 <table class="layui-hide" id="admin-table" lay-filter="admin-table"></table>
             </div>
         </div>
@@ -31,6 +60,7 @@
 <script>
     layui.use(function () {
         var table = layui.table
+            , form = layui.form
             , $ = layui.$;
 
         table.render({
@@ -40,45 +70,59 @@
             , cols: [<?php echo json_encode($columns); ?>]
         });
 
-    table.on("tool(admin-table)", function (obj) {
-        let data = obj.data;
-        console.log(data);
-        switch (obj.event) {
-            case "view":
-                layer.open({
-                    type: 2,
-                    title: "查看",
-                    shadeClose: true,
-                    maxmin: true, // 开启最大化最小化按钮
-                    area: ["80%", "80%"],
-                    content: "/admin/form/{$pathinfos[2]}?_type=view&" + $.param(data)
-                });
-                break;
-            case "edit":
-                layer.open({
-                    type: 2,
-                    title: "编辑",
-                    shadeClose: true,
-                    maxmin: true, // 开启最大化最小化按钮
-                    area: ["80%", "80%"],
-                    content: "/admin/form/{$pathinfos[2]}?_type=edit&" + $.param(data)
-                });
-                break;
-            case "delete":
-                layer.confirm('确定删除吗？', { icon: 3 }, function () {
-                    $.ajax({
-                        url: "/api/{$pathinfos[2]}/delete/" + data.id
-                        , type: "delete"
-                    })
-                        .done(function (res) {
-                            layer.msg(res.msg);
+        table.on("tool(admin-table)", function (obj) {
+            let data = obj.data;
+            console.log(data);
+            switch (obj.event) {
+                case "view":
+                    layer.open({
+                        type: 2,
+                        title: "查看",
+                        shadeClose: true,
+                        maxmin: true, // 开启最大化最小化按钮
+                        area: ["80%", "80%"],
+                        content: "/admin/form/{$pathinfos[2]}?_type=view&" + $.param(data)
+                    });
+                    break;
+                case "edit":
+                    layer.open({
+                        type: 2,
+                        title: "编辑",
+                        shadeClose: true,
+                        maxmin: true, // 开启最大化最小化按钮
+                        area: ["80%", "80%"],
+                        content: "/admin/form/{$pathinfos[2]}?_type=edit&" + $.param(data)
+                    });
+                    break;
+                case "delete":
+                    layer.confirm('确定删除吗？', { icon: 3 }, function () {
+                        $.ajax({
+                            url: "/api/{$pathinfos[2]}/delete/" + data.id
+                            , type: "delete"
                         })
-                });
-                break;
-            default:
-                break;
-        }
-    });
+                            .done(function (res) {
+                                layer.msg(res.msg);
+                            })
+                    });
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        form.on("submit(admin-table-search)", function (obj) {
+            console.log(obj.field);
+            // 执行搜索重载
+            table.reload("admin-table", {
+                page: {
+                    // 重新从第 1 页开始
+                    curr: 1 
+                },
+                // 搜索的字段
+                where: { wheres: obj.field } 
+            });
+            return false;
+        })
     })
 </script>
 {/block}
