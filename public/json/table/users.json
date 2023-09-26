@@ -19,7 +19,7 @@
     "page": "true",
     "orders": [
         {
-            "field": "id",
+            "field": "users.id",
             "sort": "desc"
         }
     ]

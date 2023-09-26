@@ -3,5 +3,17 @@
     "table": "master_university",
     "columns": [
         
+    ],
+    "wheres": [
+        {
+            "field": "flag_show",
+            "match": "=",
+            "value": 1
+        },
+        {
+            "field": "deleted_at",
+            "match": "",
+            "value": "null"
+        }
     ]
 }

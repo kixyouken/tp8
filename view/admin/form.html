@@ -1,5 +1,17 @@
 {extend name="layout/iframe" /}
 
+{block name="css"}
+<style>
+    .layui-form-label {
+        width: 160px;
+    }
+
+    .layui-input-block {
+        margin-left: 190px;
+    }
+</style>
+{/block}
+
 {block name="main"}
 <div class="layui-row">
     <div class="layui-col-md12">
@@ -46,6 +58,12 @@
                     </div>
                     {/present}
                     {/volist}
+                    <div class="layui-col-md12" id="admin-save" style="display: none;">
+                        <div class="layui-input-block">
+                            <button type="submit" class="layui-btn" lay-submit lay-filter="demo1">立即提交</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -85,6 +103,12 @@
         })
             .done(function (res) {
                 form.val("admin-form", res.data);
+                if ("{$Request.get._type}" == "view") {
+                    // 禁用表单中的所有输入字段和选择框
+                    $('input, select').prop('disabled', true);
+                } else {
+                    $("#admin-save").show();
+                }
                 form.render();
                 layer.closeAll("dialog");
             })

@@ -33,8 +33,8 @@
         table.render({
             elem: "#admin-table"
             , url: "/api/{$pathinfos[2]}/index"
-            , cols: [<?php echo json_encode($columns); ?>]
             , page: {$page ?? "false"}
+            , cols: [<?php echo json_encode($columns); ?>]
         });
 
     table.on("tool(admin-table)", function (obj) {
@@ -48,11 +48,18 @@
                     shadeClose: true,
                     maxmin: true, // 开启最大化最小化按钮
                     area: ["80%", "80%"],
-                    content: "/admin/form/{$pathinfos[2]}?" + $.param(data)
+                    content: "/admin/form/{$pathinfos[2]}?_type=view&" + $.param(data)
                 });
                 break;
             case "edit":
-
+                layer.open({
+                    type: 2,
+                    title: "编辑",
+                    shadeClose: true,
+                    maxmin: true, // 开启最大化最小化按钮
+                    area: ["80%", "80%"],
+                    content: "/admin/form/{$pathinfos[2]}?_type=edit&" + $.param(data)
+                });
                 break;
             case "delete":
                 layer.confirm('确定删除吗？', { icon: 3 }, function () {

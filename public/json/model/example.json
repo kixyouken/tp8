@@ -20,5 +20,11 @@
     ],
     "columns": [
         
+    ],
+    "wheres": [
+        {
+            "field": "deleted_at",
+            "value": "null"
+        }
     ]
 }

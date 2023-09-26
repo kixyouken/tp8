@@ -24,10 +24,11 @@ class Base
         return $this->table->where('id', $id)->find();
     }
 
-    public function getPage($table_json)
+    public function getPage($table_json, $model_json)
     {
         $limit = Request::get('limit', 10);
-        return $this->getTable($table_json)->paginate($limit);
+        $this->table = $this->getModel($model_json);
+        return $this->getTable($table_json)->field($model_json['table'] . '.*')->paginate($limit);
     }
 
     public function setDelete($id)
@@ -52,9 +53,33 @@ class Base
         return $this->table;
     }
 
-    public function getFields()
+    private function getModel($model_json)
     {
-        return $this->table->getTableFields();
+        if (!empty($model_json['joins'])) {
+            foreach ($model_json['joins'] as $key => &$value) {
+                $fields = $this->getFields($value['table']);
+                $fields = array_map(function ($field) use ($value) {
+                    return $value['table'] . '.' . $field . ' AS ' . $value['table'] . '_' . $field;
+                }, $fields);
+                $this->table->field($fields)->join($value['table'], $model_json['table'] . '.' . $value['key'] . ' = ' . $value['table'] . '.' . $value['foreign'], $value['join']);
+            }
+        }
+
+        if (!empty($model_json['wheres'])) {
+            foreach ($model_json['wheres'] as $key => &$value) {
+                if ($value['value'] == "null") {
+                    $this->table->where($value['field'], $value['value']);
+                } else {
+                    $this->table->where($value['field'], $value['match'], $value['value']);
+                }
+            }
+        }
+        return $this->table;
+    }
+
+    public function getFields($table)
+    {
+        return Db::table($table)->getTableFields();
     }
 
     public function getColumns($fields)

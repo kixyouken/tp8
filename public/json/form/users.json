@@ -2,48 +2,6 @@
     "name": "用户表单",
     "model": "users",
     "columns": [
-        {
-            "field": "id",
-            "title": "ID"
-        },
-        {
-            "field": "name",
-            "title": "姓名"
-        },
-        {
-            "field": "type",
-            "title": "文理",
-            "type": "select",
-            "options": [
-                {
-                    "label": "文科",
-                    "value": "1"
-                },
-                {
-                    "label": "理科",
-                    "value": "2"
-                }
-            ]
-        },
-        {
-            "field": "master_university_id",
-            "title": "学校",
-            "type": "select",
-            "api": {
-                "model": "master_university",
-                "label": "name",
-                "value": "id"
-            }
-        },
-        {
-            "field": "master_job_id",
-            "title": "职种",
-            "type": "select",
-            "api": {
-                "model": "master_job",
-                "label": "name",
-                "value": "id"
-            }
-        }
+        
     ]
 }

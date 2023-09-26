@@ -40,7 +40,7 @@ class Api extends BaseController
             $data = $model->getAll($this->table);
             return $this->dataful($data);
         } else {
-            $data = $model->getPage($this->table);
+            $data = $model->getPage($this->table, $this->model);
             return $this->pageful($data->getCollection(), $data->total());
         }
 
