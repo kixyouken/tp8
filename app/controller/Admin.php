@@ -49,14 +49,16 @@ class Admin extends BaseController
                 $value['title'] = $value['field'];
             }
         }
-        $field_json = file_get_contents($this->app->getRootPath() . '/public/json/field/' . $pathinfos[2] . '.json');
-        if ($field_json) {
-            $field = json_decode($field_json, true);
-            foreach ($table['columns'] as $key => &$value) {
-                if (!empty($value['field'])) {
-                    foreach ($field as $k => &$v) {
-                        if ($value['field'] === $v['field']) {
-                            $value['title'] = $v['title'];
+        if (file_exists($this->app->getRootPath() . '/public/json/field/' . $pathinfos[2] . '.json')) {
+            $field_json = file_get_contents($this->app->getRootPath() . '/public/json/field/' . $pathinfos[2] . '.json');
+            if ($field_json) {
+                $field = json_decode($field_json, true);
+                foreach ($table['columns'] as $key => &$value) {
+                    if (!empty($value['field'])) {
+                        foreach ($field as $k => &$v) {
+                            if ($value['field'] === $v['field']) {
+                                $value['title'] = $v['title'];
+                            }
                         }
                     }
                 }
@@ -83,9 +85,27 @@ class Admin extends BaseController
         $model_json = file_get_contents($this->app->getRootPath() . '/public/json/model/' . $form['model'] . '.json');
         $model_arr = json_decode($model_json, true);
         $model = new Base($model_arr['table']);
+        $fields = $model->getFields($model_arr['table']);
         if (empty($form['columns'])) {
-            $fields = $model->getFields($model_arr['table']);
             $form['columns'] = $model->getColumns($fields);
+        }
+        foreach ($form['columns'] as $key => &$value) {
+            if (empty($value['title'])) {
+                $value['title'] = $value['field'];
+            }
+        }
+        $field_json = file_get_contents($this->app->getRootPath() . '/public/json/field/' . $pathinfos[2] . '.json');
+        if ($field_json) {
+            $field = json_decode($field_json, true);
+            foreach ($form['columns'] as $key => &$value) {
+                if (!empty($value['field'])) {
+                    foreach ($field as $k => &$v) {
+                        if ($value['field'] === $v['field']) {
+                            $value['title'] = $v['title'];
+                        }
+                    }
+                }
+            }
         }
 
         foreach ($form['columns'] as $key => &$value) {
