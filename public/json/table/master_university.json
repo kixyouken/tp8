@@ -2,19 +2,7 @@
     "name": "用户表格",
     "model": "master_university",
     "columns": [
-        {
-            "field": "id",
-            "title": "ID"
-        },
-        {
-            "field": "name",
-            "title": "名称"
-        },
-        {
-            "title": "操作",
-            "width": 150,
-            "toolbar": "#toolBar"
-        }
+
     ],
     "page": "true",
     "orders": [

@@ -7,8 +7,11 @@
             "title": "ID"
         },
         {
-            "field": "name",
-            "title": "姓名"
+            "field": "name"
+        },
+        {
+            "field": "status",
+            "templet": "#statusTpl"
         },
         {
             "title": "操作",
