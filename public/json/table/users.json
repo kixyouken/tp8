@@ -10,6 +10,13 @@
             "field": "name"
         },
         {
+            "field": "email"
+        },
+        {
+            "field": "join_master_university_name",
+            "title": "学校名"
+        },
+        {
             "field": "status",
             "templet": "#statusTpl"
         },
@@ -28,12 +35,23 @@
     ],
     "searchs": [
         {
-            "field": "id",
-            "match": "="
+            "field": "users.id",
+            "match": "=",
+            "title": "ID"
         },
         {
             "field": "name",
-            "match": "like.right"
+            "match": "like",
+            "title": "姓名"
+        },
+        {
+            "field": "email",
+            "match": "like"
+        },
+        {
+            "field": "master_university.name",
+            "match": "like",
+            "title": "学校名"
         }
     ]
 }

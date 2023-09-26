@@ -60,7 +60,7 @@ class Base
             foreach ($model_json['joins'] as $key => &$value) {
                 $fields = $this->getFields($value['table']);
                 $fields = array_map(function ($field) use ($value) {
-                    return $value['table'] . '.' . $field . ' AS ' . $value['table'] . '_' . $field;
+                    return $value['table'] . '.' . $field . ' AS join_' . $value['table'] . '_' . $field;
                 }, $fields);
                 $this->table->field($fields)->join($value['table'], $model_json['table'] . '.' . $value['key'] . ' = ' . $value['table'] . '.' . $value['foreign'], $value['join']);
             }
@@ -84,7 +84,7 @@ class Base
         if (!empty($wheres)) {
             foreach ($wheres as $key => &$value) {
                 if (!empty($value)) {
-                    list($field, $match) = explode('_', $key);
+                    list($field, $match) = explode('+', $key);
                     switch ($match) {
                         case 'like':
                             $this->table->whereLike($field, '%' . $value . '%');

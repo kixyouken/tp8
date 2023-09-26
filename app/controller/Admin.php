@@ -62,8 +62,17 @@ class Admin extends BaseController
                         }
                     }
                 }
+
+                foreach ($table['searchs'] as $key => &$value) {
+                    foreach ($field as $k => &$v) {
+                        if (empty($value['title']) && $value['field'] === $v['field']) {
+                            $value['title'] = $v['title'];
+                        }
+                    }
+                }
             }
         }
+
         View::assign($table);
 
         return view('', $data);

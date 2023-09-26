@@ -24,9 +24,9 @@
                     <div class="layui-col-md4">
                         <div class="layui-input-wrap">
                             <div class="layui-input-prefix">
-                                {$vo.field}
+                                {$vo.title ?? $vo.field}
                             </div>
-                            <input type="text" name="{$vo.field}_{$vo.match}" value="" placeholder="请输入{$vo.field}"
+                            <input type="text" name="{$vo.field}+{$vo.match}" value="" placeholder="请输入 {$vo.title ?? $vo.field}"
                                 class="layui-input" lay-affix="clear">
                         </div>
                     </div>
